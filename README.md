@@ -76,7 +76,6 @@ The app reads its settings through `config.get_secret()`, which checks Streamlit
 
 1. Go to [share.streamlit.io](https://share.streamlit.io) and click **New app**.
 2. Pick this repository and branch `main`, with `app.py` as the main file.
-   - This repo is private, so first authorize the Streamlit GitHub app for it (or make the repo public).
 3. Open **Advanced settings → Secrets** and paste:
 
    ```toml
