@@ -70,6 +70,24 @@ PDF → extract text → clean → chunk (by tokens)
                         combine → final summary             (reduce)
 ```
 
+## Deploy to Streamlit Community Cloud
+
+The app reads its settings through `config.get_secret()`, which checks Streamlit secrets first and then the environment. That means the same code runs locally from `.env` and in the cloud from the Secrets manager — no code changes needed.
+
+1. Go to [share.streamlit.io](https://share.streamlit.io) and click **New app**.
+2. Pick this repository and branch `main`, with `app.py` as the main file.
+   - This repo is private, so first authorize the Streamlit GitHub app for it (or make the repo public).
+3. Open **Advanced settings → Secrets** and paste:
+
+   ```toml
+   GEMINI_API_KEY = "your_gemini_api_key_here"
+   GEMINI_MODEL = "gemini-3.1-flash-lite"
+   ```
+
+4. Click **Deploy**.
+
+Never commit real keys. `.env` and `.streamlit/secrets.toml` are both git-ignored; `.env.example` and `.streamlit/secrets.toml.example` are the safe templates.
+
 ## Troubleshooting
 
 - **"No extractable text"**: the PDF is probably scanned images. Run OCR on it first.

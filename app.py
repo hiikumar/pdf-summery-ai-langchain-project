@@ -1,8 +1,7 @@
-import os
-
 import streamlit as st
 from dotenv import load_dotenv
 
+from config import get_secret
 from pdf_processor import PDFProcessor
 from summarizer import PDFSummarizer
 from utils import (
@@ -30,7 +29,7 @@ def main():
     # Sidebar settings
     st.sidebar.header("⚙ Settings")
 
-    default_model = os.getenv("GEMINI_MODEL", MODELS[0])
+    default_model = get_secret("GEMINI_MODEL", MODELS[0])
     models = MODELS if default_model in MODELS else [default_model] + MODELS
     model = st.sidebar.selectbox("Model", models, index=models.index(default_model),
                                  help="Gemini model used for all LLM calls")

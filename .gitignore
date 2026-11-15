@@ -10,6 +10,7 @@ __pycache__/
 
 # Ignore secrets and configs
 .env
+.streamlit/secrets.toml
 
 # Ignore logs
 *.log

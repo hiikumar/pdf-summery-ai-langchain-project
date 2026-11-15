@@ -1,10 +1,10 @@
-import os
 import re
 
 from dotenv import load_dotenv
 from langchain_core.runnables import RunnableLambda
 from langchain_google_genai import ChatGoogleGenerativeAI
 
+from config import get_secret
 from prompts import ANALYSIS, CHUNK_SUMMARY, COMBINE, QUOTES, STYLES
 
 load_dotenv()
@@ -13,9 +13,9 @@ load_dotenv()
 class PDFSummarizer:
     def __init__(self, model: str | None = None):
         self.llm = ChatGoogleGenerativeAI(
-            model=model or os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite"),
+            model=model or get_secret("GEMINI_MODEL", "gemini-3.1-flash-lite"),
             temperature=0.3,
-            google_api_key=os.getenv("GEMINI_API_KEY"),
+            google_api_key=get_secret("GEMINI_API_KEY"),
         )
         # Gemini 3 content is a list of blocks; .text joins them, str() drops the TextAccessor type
         parser = RunnableLambda(lambda m: str(m.text))

@@ -1,8 +1,9 @@
-import os
 import time
 
 import pandas as pd
 import streamlit as st
+
+from config import get_secret
 
 
 def format_summary_display(summary_data: dict):
@@ -69,7 +70,7 @@ def estimate_processing_time(num_chunks: int) -> str:
 
 def validate_api_key() -> bool:
     """Check GEMINI_API_KEY is set; show a quiet sidebar caption when it is."""
-    api_key = os.getenv("GEMINI_API_KEY")
+    api_key = get_secret("GEMINI_API_KEY")
     if not api_key:
         st.error("❌ GEMINI_API_KEY not found! Copy `.env.example` to `.env`, add your key, and restart.")
         st.info("Get a free key at https://aistudio.google.com/apikey")
